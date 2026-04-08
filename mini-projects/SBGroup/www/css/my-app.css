@@ -1,0 +1,33 @@
+.login-screen-title img{
+  width: 62%;
+  left: -20px;
+  position: relative;
+}
+i.icon.fa.fa-home, i.icon.fa.fa-envelope-o, i.icon.fa.fa-calendar{
+  font-size: 28px;
+}
+
+#div_citas{
+  margin: -4%;
+}
+
+#div_inicio{
+  margin: 0% 0;
+}
+
+#div_alertas{
+  margin: -8% -3%;
+}
+
+div.speed-dial-buttons a i.icon img{
+  height: 30px;
+}
+
+.item-title{
+  font-weight: bold;
+}
+
+.item-subtitle{
+  font-style: italic;
+  max-width: 50% !important;
+}

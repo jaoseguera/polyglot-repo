@@ -1,0 +1,53 @@
+<div data-page="detalles" class="page navbar-fixed">
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="left">
+        <a href="login.html" class="back link icon-only">
+          <i class="icon icon-back"></i>
+        </a>
+      </div>
+      <div class="center">Detalles del caso</div>
+      <div class="right"></div>
+    </div>
+  </div>
+
+  <div class="speed-dial">
+    <a href="#" class="floating-button"><i class="icon icon-plus"></i><i class="icon icon-close"></i></a>
+    <div class="speed-dial-buttons">
+      <a href="nuevo_gasto.html"><i class="icon" onclick="valores_defecto_gasto()">
+        <img src="img/credit-card.png"></i>
+      </a>
+      <a href="nueva_llamada.html" onclick="valores_defecto_llamada()">
+        <i class="icon"><img src="img/phone.png"></i>
+      </a>
+      <a href="nuevo_abono.html" onclick="valores_defecto_abono()">
+        <i class="icon"><img src="img/bill.png" alt=""></i>
+      </a>
+      <a href="nueva_promesa.html" onclick="valores_defecto_promesa()">
+        <i class="icon"><img src="img/handshake.png" alt=""></i>
+      </a>
+      <a href="nueva_cita.html" onclick="valores_defecto_cita()"><i class="icon">
+        <img src="img/calendar.png" alt=""></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="content-block">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-content-inner" id="contenedor_caso">
+
+          </div>
+        </div>
+      </div>
+      <div class="list-block media-list">
+        <legend>Detalle de gestión</legend>
+          <ul id="lista_gestion_creditos">
+
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>

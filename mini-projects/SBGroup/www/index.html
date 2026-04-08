@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Required meta tags-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,
+    minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#2196f3">
+
+  <!-- Path to Framework7 Library CSS-->
+  <link rel="stylesheet" href="https://framework7.io/dist/css/framework7.material.min.css">
+  <link rel="stylesheet" href="https://framework7.io/dist/css/framework7.material.colors.min.css">
+  <link rel="stylesheet" href="https://framework7.io/kitchen-sink-material/css/kitchen-sink.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/my-app.css">
+  <title>Ingresar</title>
+</head>
+
+<body>
+  <div class="views">
+    <div class="view view-main" data-page="tabbar-labels">
+      <!--PAGES-->
+      <div class="pages navbar-fixed">
+        <div class="page tabbar-labels-fixed page-on-center" data-page="tabbars-labels">
+
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="left">
+                <a href="#" class="back link icon-only open-login-screen">
+                  <i class="icon icon-back"></i>
+                </a>
+              </div>
+              <div class="center">MIS CASOS</div>
+              <div class="right">
+                <a href="#" class="link icon-only open-right-panel">
+                  <i class="icon icon-bars"></i>
+                </a>
+              </div>
+            </div>
+          </div><!--navbar-->
+
+          <div class="toolbar tabbar tabbar-labels">
+            <div class="toolbar-inner">
+              <a href="#tab1" class="tab-link active">
+                <i class="icon fa fa-home"></i>
+                <span class="tabbar-label">INICIO</span>
+              </a>
+              <a href="#tab2" class="tab-link">
+                <i class="icon fa fa-calendar"></i>
+                <span class="tabbar-label">AGENDA</span>
+              </a>
+              <a href="#tab3" class="tab-link">
+                <i class="icon fa fa-envelope-o"></i>
+                <span class="tabbar-label">ALERTAS</span>
+              </a>
+            </div>
+          </div><!--toolbar-->
+
+          <div class="searchbar-overlay"></div>
+
+          <div class="page-content">
+            <div class="tabs-swipeable-wrap">
+              <div class="tabs">
+
+                <div id="tab1" class="tab active">
+                  <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
+                    <div class="searchbar-input">
+                        <input type="search" placeholder="Buscar">
+                        <a href="#" class="searchbar-clear"></a>
+                    </div>
+                    <a href="#" class="searchbar-cancel"></a>
+                  </form>
+                  <div class="content-block searchbar-not-found">
+                    <div class="content-block-inner">No se han encontrado elementos...</div>
+                  </div>
+                  <div id="div_inicio" class="list-block media-list list-block-search searchbar-found">
+                      <ul id="lista_creditos">
+                      </ul>
+                  </div>
+                </div><!--tab1-->
+
+                <div id="tab2" class="tab">
+                  <div id="calendar-inline-container"></div>
+                  <div class="content-block">
+                    <div class="content-block-inner">
+                      <div id="div_citas" class="list-block media-list">
+                        <ul id="lista_citas">
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div><!--tab2-->
+
+                <div id="tab3" class="tab">
+                  <div class="content-block">
+                    <div id="div_alertas"class="list-block media-list">
+                      <ul id="lista_alarmas">
+                      </ul>
+                    </div>
+                  </div>
+                </div><!--tab3-->
+
+              </div><!--tabs-->
+            </div><!--tabs-wrapeable-->
+          </div><!--page-content-->
+        </div><!--page-->
+      </div><!--pages-->
+    </div><!--view-->
+  </div><!--views-->
+
+  <!--VENTANA DE INGRESO-->
+  <div class="login-screen modal-in">
+    <div class="view">
+      <div class="page">
+        <div class="page-content login-screen-content">
+          <div class="login-screen-title">
+            <img src="img/logo.png">
+          </div>
+          <form>
+            <div class="list-block">
+              <ul>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Usuario</div>
+                  </div>
+                </li>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-input">
+                      <input type="text" name="username" placeholder="Introduce tu nombre de usuario">
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Contraseña</div>
+                  </div>
+                </li>
+                <li class="item-content">
+                  <div class="item-inner">
+                    <div class="item-input">
+                      <input type="password" name="password" placeholder="Introduce tu contraseña">
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div><!--LIST-BLOCK-->
+            <div class="list-block">
+              <ul>
+                <li>
+                  <a href="#" id="btn_ingresar" class="item-link button big-button button-fill">
+                    <span>Entrar</span>
+                  </a>
+                </li>
+              </ul>
+            </div><!--LIST-BLOCK-->
+          </form>
+        </div><!--PAGE CONTENT-->
+      </div><!--PAGE-->
+    </div><!--VIEW-->
+  </div><!--VENTANA DE INGRESO-->
+
+
+
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"
+    integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+    crossorigin="anonymous">
+  </script>
+  <script src="https://framework7.io/dist/js/framework7.js"></script>
+  <script type="text/javascript" src="https://framework7.io/dist/js/framework7.min.js"></script>
+  <!-- Path to your app js-->
+  <script src="cordova.js"></script>
+  <script src="js/my-app.js"></script>
+  <script src="js/index.js"></script>
+  <script>
+      app.initialize();
+  </script>
+</body>
+</html>
