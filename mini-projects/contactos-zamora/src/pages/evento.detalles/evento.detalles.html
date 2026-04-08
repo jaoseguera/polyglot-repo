@@ -1,0 +1,28 @@
+<!--Encabezado-->
+<ion-header>
+  <ion-navbar color = "primary">
+    <ion-title>Detalles</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!--Contenido-->
+  <ion-card>
+    <img src="{{evento.imagen}}" id = "imagen"/>
+    <ion-card-content>
+      <ion-card-title>
+        <span style="font-weight:bold">{{evento.titulo | uppercase}}</span>
+      </ion-card-title>
+      <span style="font-style: italic">{{evento.fecha}}, {{evento.lugar}}</span><br><br>
+      <p>{{evento.descripcion}}</p>
+      <button *ngIf="evento.telefono" ion-button clear icon-left (click)="llamar(evento.telefono)">
+        <ion-icon *ngIf="evento.telefono" name="call"></ion-icon>
+        {{evento.telefono}}
+      </button> 
+      <br>
+      <ion-icon *ngIf="evento.facebook" name="logo-facebook">
+        <a href="{{evento.facebook}}">{{evento.titulo}}</a>
+      </ion-icon> 
+    </ion-card-content>
+  </ion-card>
+</ion-content>

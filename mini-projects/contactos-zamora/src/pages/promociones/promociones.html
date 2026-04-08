@@ -1,0 +1,28 @@
+<!--Encabezado-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Promociones</ion-title>
+    <button ion-button menuToggle right>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!--Lista de promociones-->
+  <ion-list>
+    <ion-item *ngFor = "let promocion of promociones">
+      <ion-thumbnail item-left style="display:inline-block">
+        <img src="{{promocion.imagen}}">
+      </ion-thumbnail>
+      <br>
+      <h2><span style="font-weight:bold">{{promocion.titulo | uppercase}}</span></h2>
+      <span style="font-style: italic">{{promocion.descripcion}}</span><br>
+      <p>{{promocion.validez}}</p>
+      <button ion-button clear icon-left (click)="llamar(promocion.telefono)">
+        <ion-icon name="call"></ion-icon>
+        {{promocion.empresa}}
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>

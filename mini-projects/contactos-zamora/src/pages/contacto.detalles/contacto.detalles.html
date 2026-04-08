@@ -1,0 +1,33 @@
+<!--Encabezado-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Detalles</ion-title>
+  </ion-navbar>
+</ion-header>
+<!--Contenido-->
+<ion-content padding>
+  <ion-card>
+    <img src="{{contacto.imagen}}" id = "imagen"/>
+    <ion-card-content>
+      <ion-card-title>
+        <span style="font-weight:bold">{{contacto.nombre | uppercase}}</span>
+      </ion-card-title>
+      <span style="font-style: italic">{{contacto.eslogan}}</span><br><br>
+      <p>{{contacto.descripcion}}</p>
+      
+        <div *ngFor = "let telefono of contacto.telefonos">
+          <button ion-button clear icon-left (click)="llamar(telefono.numero)">
+            <ion-icon name="call"></ion-icon>
+            {{telefono.nombre}} - {{telefono.numero}}
+          </button> 
+        </div>
+
+        <div>
+          <ion-icon *ngIf="contacto.facebook" name="logo-facebook">
+            <a href="{{contacto.facebook}}">{{contacto.nombre}}</a>
+          </ion-icon> 
+        </div>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,22 @@
+page-contactos {
+    ion-thumbnail {
+        display:inline-block;
+    }
+    #div_contacto{
+         position: relative;
+         top: 50%;
+         display:inline-block;
+    }
+    #contacto_nombre{
+        font-weight:bold;
+    }
+    #contacto_eslogan{
+        font-style: italic;
+    }
+    ul{
+        list-style: none;
+        margin: 0;
+        padding: 0; 
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,36 @@
+<!--Contenido del menú lateral-->
+<ion-menu [content]="content" side="right">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Acerca de nosotros</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-card>
+      <img src="img/acerca.png"/>
+      <ion-card-content>
+        <ion-card-title></ion-card-title>
+        <h2><span style="font-style: italic">Aplicaciones, diseño, publicidad y marketing.</span></h2><br>
+        <p>Falta tu logo aquí, contáctanos:</p>
+        <!--Botones para marcar a los números de teléfono-->
+        <button ion-button clear icon-left (click)="llamar(3515477741)">
+          <ion-icon name="call"></ion-icon>
+          J.A. Oseguera - 351 547 7741
+        </button>               
+        <button ion-button clear icon-left (click)="llamar(3511342453)">
+          <ion-icon name="call"></ion-icon>
+          Daniel Guzmán - 351 134 2453
+        </button>               
+        <button ion-button clear icon-left (click)="llamar(3511343683)">
+          <ion-icon name="call"></ion-icon>
+          Victor Guerrero - 351 134 3683
+        </button>
+                       
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+
+</ion-menu>
+<!--Página raíz-->
+<ion-nav [root]="rootPage" #content></ion-nav>

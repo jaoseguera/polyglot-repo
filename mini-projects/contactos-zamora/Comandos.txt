@@ -1,0 +1,22 @@
+GENERAR EL APK
+----------------------------------------------------------------------------------
+
+$ cordova platform add android
+
+$ cordova build --release android
+
+$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore android-release-unsigned.apk llave_oseguera
+
+##contraseña = oseguera##
+
+$ zipalign -v 4 android-release-unsigned.apk Contactos.apk
+
+
+
+
+GENERAR UN KEYTOOL
+----------------------------------------------------------------------------------
+
+$ keytool -genkey -v -keystore my-release-key.keystore -alias alias_name 
+-keyalg RSA -keysize 2048 -validity 10000
+

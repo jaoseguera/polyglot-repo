@@ -1,0 +1,32 @@
+<!--Encabezado-->
+<ion-header>
+  <ion-navbar color = "primary">
+    <ion-title>Eventos</ion-title>
+    <button ion-button menuToggle right>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+
+  <!--Barra de búsqueda-->
+  <ion-searchbar
+    [(ngModel)] = "cadenaBusqueda" 
+    (ionInput)="filtrarEventos()" 
+    placeholder="Título o palabra clave"></ion-searchbar>
+</ion-header>
+
+<ion-content padding text-wrap>
+  <!--Lista de eventos-->
+  <ion-list>
+    <ion-item *ngFor = "let evento of eventos">
+      <div (click)="verDetalles(evento)">
+        <ion-card>
+        <img src="{{evento.imagen}}"/>
+        <ion-card-content>
+          <ion-card-title>{{evento.titulo || uppercase}}</ion-card-title>
+          <p>{{evento.fecha}}, {{evento.lugar}}</p>
+        </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

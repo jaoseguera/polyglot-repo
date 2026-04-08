@@ -1,0 +1,40 @@
+<!--Encabezado-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Contactos</ion-title>
+    <button ion-button menuToggle right>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+  <!--Barra de búsqueda-->
+  <ion-searchbar
+    [(ngModel)] = "cadenaBusqueda" 
+    (ionInput)="filtrarContactos()" 
+    placeholder="Título o palabra clave"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <!--Lista de contactos-->
+  <ion-list>
+    <ion-item *ngFor = "let contacto of contactos">
+      <div (click)="verDetalles(contacto)">
+        <ion-thumbnail item-left>
+          <img src="{{contacto.imagen}}">
+        </ion-thumbnail>
+        <div item-right id="div_contacto">
+          <h2><span id="contacto_nombre">{{contacto.nombre | uppercase}}</span></h2>
+          <span *ngIf="contacto.eslogan" id="contacto_eslogan">{{contacto.eslogan}}</span><br>
+          <ul>
+            <!--SlicePipe: para sólo mostrar el primer teléfono.-->
+            <li *ngFor = "let telefono of contacto.telefonos | slice:0:1">
+              <button ion-button clear icon-left (click)="llamar(telefono.numero)">
+                <ion-icon name="call"></ion-icon>
+                {{telefono.nombre}} - {{telefono.numero}}
+              </button> 
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
