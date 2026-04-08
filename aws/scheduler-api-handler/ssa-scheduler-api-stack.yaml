@@ -1,0 +1,171 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Steamship's Events Scheduler API Stack - Provides an API for managing scheduled trip events
+
+Parameters:
+    Environment:
+        Type: String
+        Description: The environment to deploy to (e.g. dev, qa, prod)
+        AllowedValues: [dev, qa, prod]
+    CodeVersion:
+        Type: String
+        Description: The version of the code to deploy (e.g. 1 etc.)
+        Default: "1"
+
+Resources:
+    # ─── IAM ROLE ───────────────────────────────────────────────────────────
+    CrudLambdaRole:
+      Type: AWS::IAM::Role
+      DeletionPolicy: Retain
+      Properties:
+          RoleName: !Sub "SchedulerApiHandler-role-${Environment}"
+          AssumeRolePolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                  - Effect: Allow
+                    Principal:
+                        Service: lambda.amazonaws.com
+                    Action: sts:AssumeRole
+          ManagedPolicyArns:
+            - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+          Policies:
+            - PolicyName: SchedulerApiHandlerPolicy
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  - Effect: Allow
+                    Action:
+                      - scheduler:GetSchedule
+                      - scheduler:UpdateSchedule
+                      - scheduler:DeleteSchedule
+                      - scheduler:ListSchedules
+                    Resource: "*"
+            - PolicyName: EAllowPassSchedulerRole
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  - Effect: Allow
+                    Action:
+                      - iam:PassRole
+                    Resource: !Sub "arn:aws:iam::${AWS::AccountId}:role/service-role/Amazon_EventBridge_Scheduler_EVENTBRIDGE_XXXXXXXXXX"
+                    Condition:
+                      StringEquals:
+                        iam:PassedToService: "scheduler.amazonaws.com"
+    # ─── LAMBDA FUNCTION ───────────────────────────────────────────────────
+    CrudLambda:
+      Type: AWS::Lambda::Function
+      DeletionPolicy: Retain
+      Properties:
+          FunctionName: !Sub "SchedulerApiHandler-${Environment}"
+          Role: !GetAtt CrudLambdaRole.Arn
+          Handler: index.handler
+          Runtime: nodejs20.x
+          MemorySize: 512
+          Timeout: 10
+          Code:
+              S3Bucket: !Sub "ssa-lambdas-code-${Environment}"
+              S3Key: !Sub "SchedulerApiHandler-${CodeVersion}.zip"
+          Environment:
+              Variables:
+                  EVENT_BUS_ARN: !Sub "arn:aws:events:us-east-1:${AWS::AccountId}:event-bus/trip-events"
+                  SCHEDULER_ROLE_ARN: !Sub "arn:aws:iam::${AWS::AccountId}:role/service-role/Amazon_EventBridge_Scheduler_EVENTBRIDGE_XXXXXXXXXX"
+                  CODE_VERSION: !Ref CodeVersion
+    # ─── API GATEWAY ──────────────────────────────────────────────────────
+    CrudApi:
+      Type: AWS::ApiGatewayV2::Api
+      DeletionPolicy: Retain
+      Properties:
+          Name: !Sub "SchedulerApi-${Environment}"
+          Description: API for managing scheduled trip events
+          ProtocolType: HTTP
+          CorsConfiguration:
+              AllowOrigins:
+                  - "*"
+              AllowMethods:
+                  - GET
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+              AllowHeaders:
+                  - Content-Type
+                  - Authorization
+              MaxAge: 300
+    
+    CrudApiIntegration:
+      Type: AWS::ApiGatewayV2::Integration
+      DeletionPolicy: Retain
+      Properties:
+          ApiId: !Ref CrudApi
+          IntegrationType: AWS_PROXY
+          IntegrationUri: !GetAtt CrudLambda.Arn
+          PayloadFormatVersion: "2.0"
+    
+    RouteGetSchedules:
+      Type: AWS::ApiGatewayV2::Route
+      Properties:
+        ApiId: !Ref CrudApi
+        RouteKey: "GET /schedules"
+        Target: !Sub "integrations/${CrudApiIntegration}"
+
+    RouteGetSchedulesByGroup:
+      Type: AWS::ApiGatewayV2::Route
+      Properties:
+        ApiId: !Ref CrudApi
+        RouteKey: "GET /schedules/{groupId}"
+        Target: !Sub "integrations/${CrudApiIntegration}"
+
+    RouteGetScheduleByIndex:
+      Type: AWS::ApiGatewayV2::Route
+      Properties:
+        ApiId: !Ref CrudApi
+        RouteKey: "GET /schedules/{groupId}/{index}"
+        Target: !Sub "integrations/${CrudApiIntegration}"
+
+    RoutePutSchedule:
+      Type: AWS::ApiGatewayV2::Route
+      Properties:
+        ApiId: !Ref CrudApi
+        RouteKey: "PUT /schedules/{groupId}/{index}"
+        Target: !Sub "integrations/${CrudApiIntegration}"
+
+    RouteDeleteScheduleByIndex:
+      Type: AWS::ApiGatewayV2::Route
+      Properties:
+        ApiId: !Ref CrudApi
+        RouteKey: "DELETE /schedules/{groupId}/{index}"
+        Target: !Sub "integrations/${CrudApiIntegration}"
+
+    RouteDeleteScheduleByGroup:
+      Type: AWS::ApiGatewayV2::Route
+      Properties:
+        ApiId: !Ref CrudApi
+        RouteKey: "DELETE /schedules/{groupId}"
+        Target: !Sub "integrations/${CrudApiIntegration}"
+
+    RouteOptions:
+      Type: AWS::ApiGatewayV2::Route
+      Properties:
+        ApiId: !Ref CrudApi
+        RouteKey: "OPTIONS /schedules/{proxy+}"
+        Target: !Sub "integrations/${CrudApiIntegration}"
+
+    CrudApiStage:
+      Type: AWS::ApiGatewayV2::Stage
+      DeletionPolicy: Retain
+      Properties:
+          ApiId: !Ref CrudApi
+          StageName: !Sub "${Environment}"
+          AutoDeploy: true
+    
+    CrudApiPermission:
+      Type: AWS::Lambda::Permission
+      DeletionPolicy: Retain
+      Properties:
+          FunctionName: !Ref CrudLambda
+          Action: lambda:InvokeFunction
+          Principal: apigateway.amazonaws.com
+          SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${CrudApi}/*/*/*"
+
+Outputs:
+    ApiUrl:
+      Description: "URL of the API Gateway endpoint"
+      Value: !Sub "https://${CrudApi}.execute-api.${AWS::Region}.amazonaws.com/${Environment}/schedules"

@@ -1,0 +1,150 @@
+{
+  "info": {
+    "_postman_id": "8113a027-68e3-4dc1-a252-f20a2890cdc2",
+    "name": "Schedules",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52071374"
+  },
+  "item": [
+    {
+      "name": "/schedules",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://XXXXXXXXX.execute-api.us-east-1.amazonaws.com/dev/schedules",
+          "protocol": "https",
+          "host": [
+            "XXXXXXXXX",
+            "execute-api",
+            "us-east-1",
+            "amazonaws",
+            "com"
+          ],
+          "path": [
+            "dev",
+            "schedules"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/schedules/{groupId}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://XXXXXXXXX.execute-api.us-east-1.amazonaws.com/dev/schedules/event-group-123",
+          "protocol": "https",
+          "host": [
+            "XXXXXXXXX",
+            "execute-api",
+            "us-east-1",
+            "amazonaws",
+            "com"
+          ],
+          "path": [
+            "dev",
+            "schedules",
+            "event-group-123"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/schedules/{groupId}/id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://XXXXXXXXX.execute-api.us-east-1.amazonaws.com/dev/schedules/event-group-123/1",
+          "protocol": "https",
+          "host": [
+            "XXXXXXXXX",
+            "execute-api",
+            "us-east-1",
+            "amazonaws",
+            "com"
+          ],
+          "path": [
+            "dev",
+            "schedules",
+            "event-group-123",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/schedules/{groupId}/id",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"scheduledAt\": \"2026-04-03T11:00:00Z\",\r\n    \"detail\": {\r\n        \"emailSubject\": \"Reminder Alert  - Day 2d\",\r\n        \"textBody\": \"Update on your trip d.\",\r\n        \"htmlBody\": \"<p>Update on your trip d.</p>\",\r\n        \"recipients\": [\r\n            {\r\n                \"email\": \"XXXXXXXXX\",\r\n                \"phone\": \"XXXXXXXXX\"\r\n            }\r\n        ]\r\n    },\r\n    \"detailType\": \"TripAlert\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://XXXXXXXXX.execute-api.us-east-1.amazonaws.com/dev/schedules/event-group-123/1",
+          "protocol": "https",
+          "host": [
+            "XXXXXXXXX",
+            "execute-api",
+            "us-east-1",
+            "amazonaws",
+            "com"
+          ],
+          "path": [
+            "dev",
+            "schedules",
+            "event-group-123",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/schedules/{groupId}/id",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"scheduledAt\": \"2026-04-03T11:00:00Z\",\r\n    \"detail\": {\r\n        \"emailSubject\": \"Reminder Alert  - Day 2d\",\r\n        \"textBody\": \"Update on your trip d.\",\r\n        \"htmlBody\": \"<p>Update on your trip d.</p>\",\r\n        \"recipients\": [\r\n            {\r\n                \"email\": \"XXXXXXXXX\",\r\n                \"phone\": \"XXXXXXXXX\"\r\n            }\r\n        ]\r\n    },\r\n    \"detailType\": \"TripAlert\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://XXXXXXXXX.execute-api.us-east-1.amazonaws.com/dev/schedules/event-group-123/1",
+          "protocol": "https",
+          "host": [
+            "XXXXXXXXX",
+            "execute-api",
+            "us-east-1",
+            "amazonaws",
+            "com"
+          ],
+          "path": [
+            "dev",
+            "schedules",
+            "event-group-123",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
